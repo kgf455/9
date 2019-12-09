@@ -1,0 +1,16 @@
+from sklearn.datasets import load_iris
+from sklearn.neighbors import KNeighborsClassifier
+import numpy as np
+from sklearn.model_selection import train_test_split
+iris_dataset=load_iris()
+print("\n IRIS FEATURES \ TARGET NAMES: \n", iris_dataset.target_names)
+for i in range(len(iris_dataset.target_names)):
+    print("\n[{0}]:[{1}]".format(i,iris_dataset.target_names[i]))
+x_train,x_test,y_train,y_test=train_test_split(iris_dataset["data"],iris_dataset["target"],random_state=0)
+kn = KNeighborsClassifier(n_neighbors=2)
+kn.fit(x_train,y_train)
+for i in range(len(x_test)):
+    x=x_test[i]
+x_new=np.array([x])
+prediction=kn.predict(x_new)
+print("\n TEST SCORE[ACCURACY]: {:.2}\n".format(kn.score(x_test,y_test)))
